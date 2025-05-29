@@ -1,0 +1,12 @@
+// Sorry no thrash here
+__pycache__/*
+handlers/__pycache__/*
+utils/__pycache__/*
+
+// We don't need that
+.old/*
+
+// hehe
+config.py
+accounts.json
+

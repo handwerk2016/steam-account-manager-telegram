@@ -1,0 +1,28 @@
+# Insert bot token here
+BOT_TOKEN = ""
+
+# List of allowed users
+# Use https://t.me/userinfobot to get your chat_id
+ALLOWED_USERS = [
+    your_chatid, 
+]
+
+# Default language
+# Available languages: en/ru
+DEFAULT_LANGUAGE = 'en'
+
+import logging
+from functools import wraps
+from telegram import Update
+from telegram.ext import ContextTypes
+
+def restricted(func):
+    """Decorator to check user access"""
+    @wraps(func)
+    async def wrapped(update: Update, context: ContextTypes.DEFAULT_TYPE, *args, **kwargs):
+        user_id = update.effective_user.id
+        if user_id not in ALLOWED_USERS:
+            logging.warning(f"Unauthorized access attempt from user {user_id}")
+            return
+        return await func(update, context, *args, **kwargs)
+    return wrapped 
