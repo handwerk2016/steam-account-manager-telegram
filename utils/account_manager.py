@@ -124,6 +124,7 @@ def process_data_line(line: str) -> dict:
 def process_mafile(content: str) -> dict:
     """Processing maFile"""
     try:
+        # Try to load JSON, regardless of formatting
         mafile_data = json.loads(content)
         
         # Get values
@@ -145,6 +146,16 @@ def process_mafile(content: str) -> dict:
             'link': link,
             'mafile': mafile_data
         }
+        
+        # Save maFile in single-line format for compatibility
+        if steam_id != "missing":
+            # Create file named by SteamID
+            with open(f"{steam_id}.maFile", 'w') as f:
+                json.dump(mafile_data, f, separators=(',', ':'))
+        elif account_name != "missing":
+            # Create file named by account_name
+            with open(f"{account_name}.maFile", 'w') as f:
+                json.dump(mafile_data, f, separators=(',', ':'))
         
         return account_data
         

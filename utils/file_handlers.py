@@ -33,7 +33,8 @@ def create_account_zip(account_data):
         
         # If there is maFile, add it to archive
         if account_data.get('mafile') and account_data['mafile']:
-            mafile_content = json.dumps(account_data['mafile'], indent=2)
+            # Save in single-line format for compatibility
+            mafile_content = json.dumps(account_data['mafile'], separators=(',', ':'))
             zip_file.writestr(f"{account_name}.maFile", mafile_content)
     
     # Return buffer with archive
@@ -67,7 +68,8 @@ def create_all_accounts_zip():
             
             # If there is maFile, add it to archive
             if account_data.get('mafile') and account_data['mafile']:
-                mafile_content = json.dumps(account_data['mafile'], indent=2)
+                # Save in single-line format for compatibility
+                mafile_content = json.dumps(account_data['mafile'], separators=(',', ':'))
                 mafile_name = f"{account_data['login']}.maFile"
                 zip_file.writestr(f"{mafile_dir}/{mafile_name}", mafile_content)
         
@@ -118,7 +120,8 @@ def create_asf_configs_zip(template_json):
             
             # If there is maFile, add it to archive
             if account_data.get('mafile') and account_data['mafile']:
-                mafile_content = json.dumps(account_data['mafile'], indent=2)
+                # Save in single-line format for compatibility
+                mafile_content = json.dumps(account_data['mafile'], separators=(',', ':'))
                 mafile_name = f"{account_data['login']}.maFile"
                 zip_file.writestr(mafile_name, mafile_content)
     
